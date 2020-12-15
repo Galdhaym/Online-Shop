@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/mainPage_styles.css">
+    <title>Internet shop</title>
+</head>
+<body>
+    <header>
+        <div class="header__high__level">
+            <div class="logo__img">
+                <img src="./images/anime_logo.jpeg" alt="">
+            </div>
+            <div class="search__li">
+                <form class="search" action="/">
+                    <input type="text" placeholder="Search.." name="search">
+                    <button type="submit"><img src="https://img.icons8.com/pastel-glyph/64/000000/search--v2.png"/></button>
+                </form>
+            </div>
+            <div class="cart__logo">
+                <button>
+                    <img src="./images/anime_cart.png" alt="">
+                </button>
+            </div>
+        </ul>
+        <div class="header__down__level">
+            
+        </div>
+    </header>
+    <div class="products">
+        {{#each foundCatalog}}
+            <div class="product">
+                <img src="./images__for__products/{{this.ref_img}}.jpg" alt="">
+                <p>Манга {{this.product}}</p>
+                <p>Количество: {{this.count}}</p>
+                <p>{{this.cost}} грн.</p>
+                <a href="localhost:3000/{{this.ref_img}}.html"><button>Купить</button></a>
+            </div>
+        {{/each}}
+    </div>
+</body>
+</html>

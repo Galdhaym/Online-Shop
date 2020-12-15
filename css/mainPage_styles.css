@@ -1,0 +1,97 @@
+body{
+  margin: 0;
+  padding: 0;
+}
+
+.products{
+  margin-top: 10px;
+}
+
+.product{
+    height: 400px;
+    width:200px;
+    border: 1px solid;
+    border-radius: 4px;
+    text-align: center;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    display: inline-block;
+}
+
+.header__high__level{
+  background-color: black;
+}
+
+.header__high__level div{
+  display: inline-block;
+}
+
+.search__li{
+  vertical-align: middle;
+  margin-left: 200px;
+  position: relative;
+}
+
+.logo__img{
+  vertical-align: top;
+}
+
+.cart__logo{
+  vertical-align: middle;
+  margin-left: 300px;
+}
+
+.logo__img img{
+  height: 100px;
+  width: 200px;
+}
+
+.cart__logo button{
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.cart__logo button img{
+    height: 100px;
+    width: 100px;
+}
+
+form.search input[type=text] {
+    padding: 10px;
+    font-size: 17px;
+    border: 1px solid grey;
+    border-radius: 20px;
+    width: 500px;
+    background: #f1f1f1;
+  }
+  
+  form.search button {
+    vertical-align: top;
+    height: 42px;
+    width: 40px;
+    padding: 10px;
+    background: #2196F3;
+    color: white;
+    font-size: 17px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    position: absolute;
+    left: 480px;
+  }
+
+  form.search button img{
+    height: 20px;
+    width: 20px;
+  }
+  
+  button:focus {
+    outline: none;
+  }
+
+  ul{
+    margin: 0;
+    padding: 0;
+  }
