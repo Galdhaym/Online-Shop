@@ -19,25 +19,44 @@
                 </form>
             </div>
             <div class="cart__logo">
-                <button>
+                <button id = "cart_img">
                     <img src="./images/anime_cart.png" alt="">
                 </button>
+                <div class="cart_menu">
+                    <div id="square"></div>
+                    <div class="shop__cart__menu">
+                        {{#each cartData}}
+                            <div class="cartRecord">
+                                <a href="localhost:3000/{{this.ref_img}}.html"><img class = "cart__image" src="./images__for__products/{{this.ref_img}}.jpg" alt="cart__image"></a>
+                                <div class="cart__text__container">
+                                    <a href="localhost:3000/{{this.ref_img}}.html"><p class="cart__title">{{this.product}}</p></a>
+                                    <p class="cart__text">{{this.count}}*{{this.cost}}</p>
+                                </div>
+                                <form class="mainPage__cart__form">
+                                    <input type="text" value = "{{this.id}}" hidden>
+                                    <img class="delete__button" src="./images/delete_bucket.png" alt="">
+                                </form>
+                            </div>
+                        {{/each}}
+                    </div>
+                </div>
             </div>
-        </ul>
-        <div class="header__down__level">
-            
         </div>
     </header>
     <div class="products">
         {{#each foundCatalog}}
             <div class="product">
-                <img src="./images__for__products/{{this.ref_img}}.jpg" alt="">
-                <p>Манга {{this.product}}</p>
-                <p>Количество: {{this.count}}</p>
+                <a href="localhost:3000/{{this.ref_img}}.html"><img src="./images__for__products/{{this.ref_img}}.jpg" alt=""></a>
+                <a href="localhost:3000/{{this.ref_img}}.html"><p>Манга {{this.product}}</p></a>
+                <p>Количество: {{this.existsCount}}</p>
                 <p>{{this.cost}} грн.</p>
-                <a href="localhost:3000/{{this.ref_img}}.html"><button>Купить</button></a>
+                <div class = "form">
+                    <input type="text" value="{{this.id}}" name="id" hidden />
+                    <button class = "add_to_cart">Купить</button>
+                </div>
             </div>
         {{/each}}
     </div>
+    <script src="/add_to_cart_front.js"></script>
 </body>
 </html>

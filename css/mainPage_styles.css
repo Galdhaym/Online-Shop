@@ -23,21 +23,20 @@ body{
   background-color: black;
 }
 
-.header__high__level div{
-  display: inline-block;
-}
-
 .search__li{
+  display: inline-block;
   vertical-align: middle;
   margin-left: 200px;
   position: relative;
 }
 
 .logo__img{
+  display: inline-block;
   vertical-align: top;
 }
 
 .cart__logo{
+  display:inline-block;
   vertical-align: middle;
   margin-left: 300px;
 }
@@ -85,13 +84,103 @@ form.search input[type=text] {
   form.search button img{
     height: 20px;
     width: 20px;
+    position:relative;
   }
   
   button:focus {
     outline: none;
   }
 
+  .cart_menu{
+    opacity: 0;
+    transition-duration: 1s;
+    position: absolute;
+    right: 152px;
+  }
+
+  .cart_menu.active{
+    opacity: 1;
+    transition-duration: 1s;
+    position: absolute;
+    right: 152px;
+  }
+  
+  .shop__cart__menu{
+    opacity: 1;
+    transition-duration:1s;
+    height: 300px;
+    width: 600px;
+    overflow: scroll;
+    background-color: white;
+    border-top: 5px #fd5503 solid;
+    border-radius:15px;
+    z-index: 1;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  }
+
+  .shop__cart__menu p{
+    font-size: 17px;
+    text-align: center;
+  }
+
+  #square{
+    width: 0;
+    height: 0;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-bottom: 10px solid #fd5503;;
+    position: absolute;
+    top: -10px;
+    right: 30px;
+  }
+
+  #cart_img{
+    position: relative;
+  }
+
+  .cart__image{
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 70px;
+  }
+
+  .cart__text__container{
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .cart__title{
+    text-align: center;
+  }
+
+  .cart__text{
+    text-align: center;
+  }
+
+  .mainPage__cart__form{
+    vertical-align: middle;
+    position:absolute;
+  }
+
+  .delete__button{
+    height: 20px;
+    width: 20px;
+    cursor: pointer;
+    position: absolute;
+    left: 500px;
+    top: -110px;
+  }
+
+  .cartRecord{
+    position: relative;
+  }
+
   ul{
     margin: 0;
     padding: 0;
+  }
+
+  a{
+    color: black;
+    text-decoration: none;
   }
