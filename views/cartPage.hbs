@@ -1,0 +1,49 @@
+<link rel="stylesheet" href="/css/mainCart_styles.css">
+<h1 class = "incart__text">В корзине:</h1>
+<a href="/" class = "return__to__catalog">Вернуться к покупкам</a>
+<p class = "remove__cart">Очистить корзину</p>
+<a href="/order" class = "to__order">Оформить заказ:</a>
+<div class="cart__main">
+    <div class="cart__main__container">
+        {{#each cartData}}
+            <div class="cartRecordMain">
+                <div class="mainCart__image">
+                    <a href="localhost:3000/{{this.ref_img}}.html"><img src="./images__for__products/{{this.ref_img}}.jpg" alt="cart__image"></a>
+                </div>
+                <div class="cart__text__container">
+                    <a href="localhost:3000/{{this.ref_img}}.html"><p class="mainCart__title">{{this.product}}</p></a>
+                </div>
+                <form class="main__cart__form">
+                    <input type="text" value = "{{this.id}}" hidden>
+                    <div class="count__container">
+                        <p class = "countTitle">Количество:</p>
+                        <div class="limit__count__container">
+                            <input type="text" value = "{{this.count}}">
+                            <div class="count__operations">
+                                <div class="plus__count">+</div>
+                                <div class="minus__count">-</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cost__container">
+                        <p class = "costTitle">Цена:</p>
+                        <p class = "costValue">{{this.cost}}</p>
+                        <p class = "cost__currency">грн</p>
+                    </div>
+                    <div class="sum__cost__container">
+                        <p class = "sumCostTitle">Сумма:</p>
+                        <p class = "sumCostValue">{{this.cost}}</p>
+                        <p class = "cost__currency">грн</p>
+                    </div>
+                    <img class="mainCart__delete__button" src="./images/delete_bucket.png" alt="">
+                </form>
+            </div>
+        {{/each}}
+    </div>
+</div>
+<div class="all__sum__container">
+    <p class = "all__sum__order__title">Сумма заказа: </p>
+    <p class = "all__sum__order__value"></p>
+    <p class = "cost__currency"> грн</p>
+</div>
+<script src="/add_to_mainCart_front.js"></script>

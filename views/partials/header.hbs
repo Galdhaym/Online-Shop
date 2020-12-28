@@ -1,0 +1,39 @@
+<header>
+        <div class="header__high__level">
+            <div class="logo__img">
+                <a href="/">
+                    <img src="./images/anime_logo.jpeg" alt="">
+                </a>
+            </div>
+            <div class="search__li">
+                <form class="search" action="/">
+                    <input type="text" placeholder="Search.." name="search">
+                    <button type="submit"><img src="https://img.icons8.com/pastel-glyph/64/000000/search--v2.png"/></button>
+                </form>
+            </div>
+            <div class="cart__logo">
+                <a href="/cart"><button id = "cart_img">
+                    <img src="./images/anime_cart.png" alt="">
+                </button></a>
+                <div class="cart_menu">
+                    <div id="square"></div>
+                    <div class="shop__cart__menu">
+                        {{#each cartData}}
+                            <div class="cartRecord">
+                                <a href="localhost:3000/{{this.ref_img}}.html"><img class = "cart__image" src="./images__for__products/{{this.ref_img}}.jpg" alt="cart__image"></a>
+                                <div class="cart__text__container">
+                                    <a href="localhost:3000/{{this.ref_img}}.html"><p class="cart__title">{{this.product}}</p></a>
+                                    <p class="cart__text">{{this.count}}*{{this.cost}}</p>
+                                    <p class = "cost__currency">грн.</p>
+                                </div>
+                                <form class="mainPage__cart__form">
+                                    <input type="text" value = "{{this.id}}" hidden>
+                                    <img class="delete__button" src="./images/delete_bucket.png" alt="">
+                                </form>
+                            </div>
+                        {{/each}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>

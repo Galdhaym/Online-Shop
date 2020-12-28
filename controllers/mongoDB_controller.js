@@ -18,6 +18,16 @@ async function parseQueryString(req, queryString){
     return ID;
 }
 
+function deleteFromCart(req, queryString, res){
+    parseQueryString(req, queryString).then(ID=>{
+        cart.deleteCartRecord(ID).then(success =>{
+            res.send(JSON.stringify(ID));
+        });
+    });
+}
+
+exports.deleteFromCartMain = deleteFromCart;
+
 exports.loadAllDataHandler = function(req, res, next){
     var foundCatalogPromise = loadCatalogData();
     var cartDataPromise = loadCartData();
@@ -48,10 +58,6 @@ exports.addToCartHandler = function(req, res, next){
 
 exports.deleteFromCartHandler = function(req, res, next){
     var queryString = "/delete-from-cart?id";
-    parseQueryString(req, queryString).then(ID=>{
-        cart.deleteCartRecord(ID).then(success =>{
-            res.send(JSON.stringify(ID));
-        });
-    });
+    deleteFromCart(req, queryString, res);
 }
 

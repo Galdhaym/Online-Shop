@@ -66,3 +66,46 @@ module.exports.deleteCartRecord = async function(id){
     var result = await collectionCart.deleteOne(query);
     return 1;
 }
+
+async function changeCount(inc, id){
+    var db = await getCatalogDB();
+    var collectionCart = db.collection("shop_cart");
+    var query = {"id": id};
+    var existCatalog = await collectionCart.find(query).toArray();
+
+    if(existCatalog.length > 0){
+        await collectionCart.updateOne(query,{
+            $inc: {"count": Number(inc)}
+        });  
+    }
+    return 1;
+}
+
+module.exports.increaseCountCart = async function(id){
+    await changeCount(1, id);
+}
+
+module.exports.decreaseCountCart = async function(id){
+    await changeCount(-1, id);
+}
+
+module.exports.changeCountCart = async function(queryObject){
+    var db = await getCatalogDB();
+    var collectionCart = db.collection("shop_cart");
+    var query = {"id": queryObject.id};
+    var existCatalog = await collectionCart.find(query).toArray();
+
+    if(existCatalog.length > 0){
+        await collectionCart.updateOne(query,{
+            $set: {"count": Number(queryObject.count)}
+        });  
+    }
+    return 1;
+}
+
+module.exports.deleteAllCartRecords = async function(){
+    var db = await getCatalogDB();
+    var collectionCart = db.collection("shop_cart");
+    await collectionCart.deleteMany({});
+    return 1;
+}
