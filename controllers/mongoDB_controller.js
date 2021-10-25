@@ -7,8 +7,8 @@ async function loadCatalogData(){
     return foundCatalog;
 }
 
-async function loadCartData(){
-    var cartData = await cart.getALLFromCartDB();
+async function loadCartData(UserID){
+    var cartData = await cart.getALLFromCartDB(UserID);
     return cartData;
 }
 
@@ -19,8 +19,9 @@ async function parseQueryString(req, queryString){
 }
 
 function deleteFromCart(req, queryString, res){
+    var userID = req.session.id;
     parseQueryString(req, queryString).then(ID=>{
-        cart.deleteCartRecord(ID).then(success =>{
+        cart.deleteCartRecord(ID, userID).then(success =>{
             res.send(JSON.stringify(ID));
         });
     });
@@ -29,8 +30,9 @@ function deleteFromCart(req, queryString, res){
 exports.deleteFromCartMain = deleteFromCart;
 
 exports.loadAllDataHandler = function(req, res, next){
+    var userID = req.session.id;
     var foundCatalogPromise = loadCatalogData();
-    var cartDataPromise = loadCartData();
+    var cartDataPromise = loadCartData(userID);
     Promise.all([foundCatalogPromise, cartDataPromise]).then((promiseValues) => {
         var foundCatalog = promiseValues[0];
         var cartData = promiseValues[1];
@@ -41,9 +43,9 @@ exports.loadAllDataHandler = function(req, res, next){
 exports.addToCartHandler = function(req, res, next){
     var queryString = '/add-to-cart?id';
     parseQueryString(req, queryString).then(ID=>{
-        cart.addCartRecord(ID).then(success =>{
-            cart.getFromCartDB(ID).then(cartDBRecord =>{
-                cart.getCountRecordsCartDb(ID).then(countRecordsCartDb =>{
+        cart.addCartRecord(ID, req.session.id).then(success =>{
+            cart.getFromCartDB(ID, req.session.id).then(cartDBRecord =>{
+                cart.getCountRecordsCartDb(req.session.id).then(countRecordsCartDb =>{
                     var record = {
                         cartDBRecord,
                         countRecordsCartDb

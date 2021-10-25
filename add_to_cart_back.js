@@ -1,39 +1,52 @@
 var mongoClient = require("./connect_MongoDB");
-module.exports.addCartRecord = async function(id){
+var ObjectID = require('mongodb').ObjectID
+module.exports.addCartRecord = async function(ProductID, userID){
         var db = await getCatalogDB();
         var collection = db.collection("catalog");
-        var query = {"id":id};
+        var query = {"id": ProductID};
         var catalogArray = await collection.find(query).toArray();
         var collectionCart = db.collection("shop_cart");
         var catalogElem = catalogArray[0];
+        var queryWithUser = {
+            "id": ProductID,
+            "userID": userID
+        }
 
-        var existCatalog = await collectionCart.find(query).toArray();
+        var existCatalog = await collectionCart.find(queryWithUser).toArray();
         var existCatalogElem = existCatalog[0];  
         if(existCatalog.length > 0){
-            await collectionCart.updateOne(query,{
+            await collectionCart.updateOne(queryWithUser,{
                 $inc: {"count": 1}
             });  
         }   
         else{ 
             catalogElem.count = 1;
+            catalogElem.userID = userID;
+            catalogElem._id = ObjectID();
             await collectionCart.insertOne(catalogElem);
         }
     return 1;
 }
 
-module.exports.getFromCartDB = async function(id){
+module.exports.getFromCartDB = async function(ProductID, userID){
         var db = await getCatalogDB();
         var collectionCart = db.collection("shop_cart");
-        var query = {"id":id};
-        var catalogArray = await collectionCart.find(query).toArray();
+        var queryWithUser = {
+            "id": ProductID,
+            "userID": userID
+        }
+        var catalogArray = await collectionCart.find(queryWithUser).toArray();
         var catalogElem = catalogArray[0];
         return catalogElem;
 }
 
-module.exports.getALLFromCartDB = async function(){
+module.exports.getALLFromCartDB = async function(userID){
     var db = await getCatalogDB();
     var collectionCart = db.collection("shop_cart");
-    var catalogArray = await collectionCart.find().toArray();
+    var queryWithUser = {
+        "userID": userID
+    }
+    var catalogArray = await collectionCart.find(queryWithUser).toArray();
     console.log(catalogArray);
     return catalogArray;
 }
@@ -44,12 +57,14 @@ async function getCatalogDB(){
     return db;
 }
 
-module.exports.getCountRecordsCartDb = async function(id){
+module.exports.getCountRecordsCartDb = async function(userID){
     var db = await getCatalogDB();
     var collectionCart = db.collection("shop_cart");
+    var query = {
+        "userID": userID
+    }
 
-    var arrayCount = await collectionCart.find({},{"count":true}).toArray();
-    console.log("count" + arrayCount[0].count);
+    var arrayCount = await collectionCart.find(query,{"count":true}).toArray();
     var sum = 0;
     for(var i = 0;i < arrayCount.length;i++){
         sum = arrayCount[i].count + sum;
@@ -58,19 +73,25 @@ module.exports.getCountRecordsCartDb = async function(id){
     return sum;
 }
 
-module.exports.deleteCartRecord = async function(id){
+module.exports.deleteCartRecord = async function(id, userID){
     var db = await getCatalogDB();
     var collectionCart = db.collection("shop_cart");
-    var query = {"id":id};
+    var query = {
+        "id":id,
+        "userID":userID
+    };
 
     var result = await collectionCart.deleteOne(query);
     return 1;
 }
 
-async function changeCount(inc, id){
+async function changeCount(inc, id, userID){
     var db = await getCatalogDB();
     var collectionCart = db.collection("shop_cart");
-    var query = {"id": id};
+    var query = {
+        "id":id,
+        "userID":userID
+    };
     var existCatalog = await collectionCart.find(query).toArray();
 
     if(existCatalog.length > 0){
@@ -81,18 +102,21 @@ async function changeCount(inc, id){
     return 1;
 }
 
-module.exports.increaseCountCart = async function(id){
-    await changeCount(1, id);
+module.exports.increaseCountCart = async function(id, userID){
+    await changeCount(1, id, userID);
 }
 
-module.exports.decreaseCountCart = async function(id){
-    await changeCount(-1, id);
+module.exports.decreaseCountCart = async function(id, userID){
+    await changeCount(-1, id, userID);
 }
 
-module.exports.changeCountCart = async function(queryObject){
+module.exports.changeCountCart = async function(queryObject, userID){
     var db = await getCatalogDB();
     var collectionCart = db.collection("shop_cart");
-    var query = {"id": queryObject.id};
+    var query = {
+        "id": queryObject.id,
+        "userID": userID
+    };
     var existCatalog = await collectionCart.find(query).toArray();
 
     if(existCatalog.length > 0){
@@ -103,9 +127,12 @@ module.exports.changeCountCart = async function(queryObject){
     return 1;
 }
 
-module.exports.deleteAllCartRecords = async function(){
+module.exports.deleteAllCartRecords = async function(userID){
     var db = await getCatalogDB();
     var collectionCart = db.collection("shop_cart");
-    await collectionCart.deleteMany({});
+    var query = {
+        "userID":userID
+    };
+    await collectionCart.deleteMany(query);
     return 1;
 }

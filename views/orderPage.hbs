@@ -1,0 +1,65 @@
+<link rel="stylesheet" href="/css/order_styles.css">
+<link rel="stylesheet" href="/css/checkBox.css">
+<div class="order__container">
+    <div class="order__item">
+        <div class="order__form" id = "order__form__1">
+            <h2>Контактная информация:</h1>
+                <div class = "form__part__1">
+                    <div class="form__item">
+                        <p>Ваш email:</p>
+                        <input type="text" id = "email" value="">
+                    </div>
+                    <div class="form__item">
+                        <p>Ваша фамилия:</p>
+                        <input type="text" id = "surname" value="">
+                    </div>
+                </div>
+                <div class = "error__validation__text">
+                    <p class = "validationText" id = "email__text"></p>
+                </div>
+                <div class = "error__validation__text">
+                    <p class = "validationText" id = "surname__text"></p>
+                </div>
+                <div  class = "form__part__2">
+                    <div class="form__item">
+                        <p>Ваш телефон:</p>
+                        <input type="text" id = "telephone" value="">
+                    </div> 
+                    <div class="form__item">
+                        <p>Ваше имя:</p>
+                        <input type="text" id = "name" value="">
+                    </div>
+                </div>  
+                <div class = "error__validation__text">
+                    <p class = "validationText" id = "telephone__text"></p>
+                </div>
+                <div class = "error__validation__text">
+                    <p class = "validationText" id = "name__text"></p>
+                </div>
+        </div>
+        <button class = "nextButton">Далее</button>
+    </div>
+
+    <div class="order__item">
+        <div class="order__form" id = "order__form__2">
+            <h2>Способ доставки:</h1>
+            <div class="checkbox">
+                <input type="checkbox" id="itselfExport">
+                <label for="itselfExport">Самовывоз</label>
+            </div>
+            <div class="checkbox">
+                <input type="checkbox" id="mailDelivery">
+                <label for="mailDelivery">Доставка службой "Новая Почта"</label>
+            </div>
+            <div class="checkbox">
+                <input type="checkbox" id="expressDelivery">
+                <label for="expressDelivery">Курьерская доставка</label>
+            </div>
+        </div>
+        <button class = "prevButton">Назад</button>
+        <button class = "nextButton">Далее</button>
+    </div>
+</div>
+<script src="/ordering__front.js"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnUIGC9S1eOFt_H8k6E0aDYyvjeCUBo7A&libraries=places"
+  type="text/javascript"></script>

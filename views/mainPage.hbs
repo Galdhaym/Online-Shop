@@ -1,15 +1,19 @@
 <div class="products">
-        {{#each foundCatalog}}
-            <div class="product">
-                <a href="localhost:3000/{{this.ref_img}}.html"><img src="./images__for__products/{{this.ref_img}}.jpg" alt=""></a>
-                <a href="localhost:3000/{{this.ref_img}}.html"><p>Манга {{this.product}}</p></a>
-                <p>Количество: {{this.existsCount}}</p>
-                <p>{{this.cost}} грн.</p>
-                <div class = "form">
-                    <input type="text" value="{{this.id}}" name="id" hidden />
-                    <button class = "add_to_cart">Купить</button>
-                </div>
-            </div>
-        {{/each}}
+	{{#each foundCatalog}}
+		<div class="product">
+			<a href="localhost:3000/{{this.ref_img}}.html"><img
+					class="product__image"
+					src="./images__for__products/{{this.ref_img}}.jpg"
+					alt=""
+				/></a>
+			<a href="localhost:3000/{{this.ref_img}}.html"><p>Манга {{this.product}}</p></a>
+			<p>Количество: {{this.existsCount}}</p>
+			<p>{{this.cost}} грн.</p>
+			<div class="form">
+				<input type="text" value="{{this.id}}" name="id" hidden />
+				<button class="add_to_cart">Купить</button>
+			</div>
+		</div>
+	{{/each}}
 </div>
 <script src="/add_to_cart_front.js"></script>

@@ -16,33 +16,37 @@ async function parseQueryStringCount(req, queryString){
 }
 
 exports.loadCartDataHandler = function loadCartDataHandler(req, res, next){
-    cart.getALLFromCartDB().then(cartData =>{
+    var userID = req.session.id;
+    cart.getALLFromCartDB(userID).then(cartData =>{
         res.render("cartPage.hbs", {cartData});
     });
 }
 
 exports.increaseCountProductHandler = function(req, res, next){
-    var queryString = "/increaseCount?id"
+    var userID = req.session.id;
+    var queryString = "/increaseCount?id";
     parseQueryString(req, queryString).then(id =>{
-        cart.increaseCountCart(id).then(success =>{
+        cart.increaseCountCart(id, userID).then(success =>{
             res.send("success");
         });
     });
 }
 
 exports.decreaseCountProductHandler = function(req, res, next){
+    var userID = req.session.id;
     var queryString = "/decreaseCount?id"
     parseQueryString(req, queryString).then(id =>{
-        cart.decreaseCountCart(id).then(success =>{
+        cart.decreaseCountCart(id, userID).then(success =>{
             res.send("success");
         });
     });
 }
 
 exports.changeCountProductHandler = function(req, res, next){
+    var userID = req.session.id;
     var queryString = "/changeCount?count"
     parseQueryStringCount(req, queryString).then(queryObj =>{
-        cart.changeCountCart(queryObj).then(success =>{
+        cart.changeCountCart(queryObj, userID).then(success =>{
             res.send("success");
         });
     });
@@ -54,7 +58,8 @@ exports.deleteFromMainCartHandler = function(req, res, next){
 }
 
 exports.deleteAllRecordsInCartHandler = function(req, res, next){
-    cart.deleteAllCartRecords().then(success =>{
+    var userId = req.session.id;
+    cart.deleteAllCartRecords(userId).then(success =>{
         res.send("success");
     });
 }
